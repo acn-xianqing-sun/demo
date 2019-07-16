@@ -21,22 +21,24 @@ public class DemoInsertController {
     @Autowired
     private DemoSearchService searchService;
 
-    @RequestMapping(value = "/insertData", method= RequestMethod.POST)
-    public String insert(@ModelAttribute Order orderFrom, Model model){
+    @RequestMapping(value = "/insertData", method = RequestMethod.POST)
+    public String insert(@ModelAttribute Order orderFrom, Model model) {
         System.out.println("HelloController.insertData");
-        if (orderFrom.getOrderid()!=null){
-            try{
+        if (orderFrom.getOrderid() != null) {
+            try {
 
-            if (searchService.insert(orderFrom)>0){
-                model.addAttribute("message","Insert is successful!!!");
-            }else{
-                model.addAttribute("message","Insert is failure!!!");
-            }}catch (Exception e){
-                model.addAttribute("message","Insert is failure!!!");
+                if (searchService.insert(orderFrom) > 0) {
+                    model.addAttribute("message", "Insert is successful!!!");
+                } else {
+                    model.addAttribute("message", "Insert is failure!!!");
+                }
+            } catch (Exception e) {
+                model.addAttribute("message", "Insert is failure!!!");
             }
         }
         return "demoInsert";
     }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

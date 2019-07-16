@@ -22,28 +22,30 @@ public class DemoUpdateController {
     @Autowired
     private DemoSearchService searchService;
 
-    @RequestMapping(value = "/edit",method = RequestMethod.GET)
-    public String init(@ModelAttribute Order orderFrom,Model model, HttpServletRequest request){
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String init(@ModelAttribute Order orderFrom, Model model, HttpServletRequest request) {
         System.out.println("HelloController.update.init");
         String orderId = request.getParameter("orderId");
         Order ret = searchService.getSearch(Integer.parseInt(orderId));
         model.addAttribute("order", ret);
         return "demoUpdate";
     }
-    @RequestMapping(value = "/updateData",method = RequestMethod.POST)
-    public String update(@ModelAttribute Order orderFrom, Model model){
+
+    @RequestMapping(value = "/updateData", method = RequestMethod.POST)
+    public String update(@ModelAttribute Order orderFrom, Model model) {
         System.out.println("HelloController.update.updateData");
-        if (orderFrom.getOrderid()!=null){
-            try{
-                if (searchService.update(orderFrom)>0){
-                    model.addAttribute("message","Update is successful!!!");
-                }else{
-                    model.addAttribute("message","Update is failure!!!");
-                }}catch (Exception e){
-                model.addAttribute("message","Update is failure!!!");
+        if (orderFrom.getOrderid() != null) {
+            try {
+                if (searchService.update(orderFrom) > 0) {
+                    model.addAttribute("message", "Update is successful!!!");
+                } else {
+                    model.addAttribute("message", "Update is failure!!!");
+                }
+            } catch (Exception e) {
+                model.addAttribute("message", "Update is failure!!!");
             }
-        }else{
-            model.addAttribute("message","Update is failure!!!");
+        } else {
+            model.addAttribute("message", "Update is failure!!!");
         }
         return "demoUpdate";
     }

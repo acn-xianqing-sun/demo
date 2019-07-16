@@ -1,37 +1,49 @@
 package com.example.demo.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.demo.dao.DemoUserDao;
 import com.example.demo.entity.newtest.Order;
+import com.example.demo.mapper.newtest.OrderMapper;
+import com.example.demo.mapper.newtest.OrderPageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DemoSearchService {
+public class DemoSearchService implements IfDemoSearchService{
     @Autowired
-    private DemoUserDao dao;
+    private JdbcTemplate jdbcTmplt;
 
+    @Autowired
+    private OrderMapper orderMapper;
+    @Autowired
+    private OrderPageMapper orderPageMapper;
 
+    @Override
     public List<Order> getAll() {
-        return dao.getAll();
+        String sql = "SELECT orderId, clientId, orderDate, quantity,commont FROM newtest.order";
+        List<Order> list = this.jdbcTmplt.query(sql, new BeanPropertyRowMapper<Order>(Order.class));
+        return list;
     }
-
+    @Override
     public Order getSearch(Integer orderid) {
-        return dao.getSearch(orderid);
+        return orderMapper.selectByPrimaryKey(orderid);
     }
+    @Override
     public int insert(Order order) {
-        return dao.insert(order);
+        return orderMapper.insert(order);
     }
+    @Override
     public int update(Order order) {
-        return dao.update(order);
+        return orderMapper.updateByPrimaryKey(order);
     }
-    public Page<Order> selectOrderPage(int page, int pageSize ) {
-//        return dao.selectPageData(page);
+    @Override
+    public Page<Order> selectOrderPage(int page, int pageSize) {
         try {
             Page<Order> p = new Page<>(page, pageSize);
-            p.setRecords(dao.selectPageData(p));
+            p.setRecords(orderPageMapper.selectPageData(p));
             return p;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
