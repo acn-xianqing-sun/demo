@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- ysql  -->
+    <classPathEntry location="/Users/xianqing.sun/.m2/repository/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar" />
+
+    <context id="xianqing.sun_mysql_tables" targetRuntime="MyBatis3">
+        <!-- -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+
+        <!-- connect-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/newtest?serverTimezone=UTC"
+                        userId="root"
+                        password="1qazxsw2">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--  -->
+        <javaModelGenerator targetPackage="com.example.demo.entity" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- sql mapper  -->
+        <sqlMapGenerator targetPackage="com.example.demo.xml.mapper"  targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- mybatis3mapper -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.mapper"  targetProject="src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--  -->
+        <table tableName="order" domainObjectName="Order"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="runtimeSchema" value="newtest"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

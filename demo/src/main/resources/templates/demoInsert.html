@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+            border: 1px solid black;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        table thead th {
+            border: 1px solid black;
+        }
+        table tbody td {
+            border: 1px solid black;
+        }
+    </style>
+    <script th:inline="javascript" type="text/javascript">
+function returnbefore() {
+   alert("test");
+ };
+    </script>
+
+</head>
+<body>
+<table cellpadding="0" cellspacing="0">
+    <tbody>
+    <tr>
+        <td th:text="${message}"></td>
+    </tr>
+    </tbody>
+</table>
+    <form action="#" th:action="@{/insertData}" th:object="${order}" method="post">
+        <p>orderId:<input type="text" th:field="*{orderid}"></p>
+        <p>clientId:<input type="text" th:field="*{clientid}"></p>
+        <p>orderDate:<input type="date" th:field="*{orderdate}"></p>
+        <p>quantity:<input type="text" th:field="*{quantity}"></p>
+        <p>comment:<input type="text" th:field="*{commont}"></p>
+        <p><input type="submit" value="insert"/></p>
+    </form>
+    <form action="#" th:action="@{/return}" method="post">
+        <input type="submit" value="return"/>
+    </form>
+<hr>
+<hr>
+</body>
+</html>
