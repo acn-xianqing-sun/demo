@@ -16,14 +16,14 @@ public class DemoRestController {
     @Autowired
     private DemoSearchService searchService;
 
-    @RequestMapping(value = "/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/initRest", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List<Order> init() {
         return searchService.getAll();
     }
 
-    @RequestMapping(value = "/searchPage2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public IPage<Order> searchPage(@RequestBody OrderForm orderFrom) {
+    @RequestMapping(value = "/searchPageRest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody IPage<Order> searchPage( OrderForm orderFrom) {
         System.out.println("HelloController.searchPage");
         List<Order> ret = null;
         int page = orderFrom.getPageNum();

@@ -19,9 +19,13 @@
     </style>
 </head>
 <body>
-    <form action="#" th:action="@{/search}" th:object="${order}" method="post">
+    <form action="#" th:action="@{/search}" th:object="${orderForm}" method="post">
         <p>orderId:<input type="text" th:field="*{orderid}"></p>
         <p><input type="submit" value="search" /></p>
+    </form>
+    <form action="#" th:action="@{/searchPageRest}" th:object="${orderForm}" method="post">
+        <p>orderId:<input type="text" th:field="*{pageNum}"></p>
+        <p><input type="submit" value="searchRest" /></p>
     </form>
 <hr>
 <table cellpadding="0" cellspacing="0">

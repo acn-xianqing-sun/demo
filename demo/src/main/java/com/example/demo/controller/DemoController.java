@@ -34,7 +34,7 @@ public class DemoController {
     }
 
     @RequestMapping("/return")
-    public String returnBefore(Model model) {
+    public String returnBefore(@ModelAttribute OrderForm orderFrom,Model model) {
         System.out.println("HelloController.return");
         model.addAttribute("current", 1);
         model.addAttribute("pages", 1);
